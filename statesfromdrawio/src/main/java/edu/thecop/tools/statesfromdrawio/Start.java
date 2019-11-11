@@ -13,7 +13,7 @@ public class Start {
     private final static String help;
 
     static {
-        help = "arg filename(file from text in drawio Extras/Edit edu.thecop.tools.statesfromdrawio.diagram...)";
+        help = "arg filename(file from text in drawio Extras/Edit diagram...)";
     }
 
     public static void main(String[] args) {
