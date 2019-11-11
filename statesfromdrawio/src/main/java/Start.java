@@ -17,6 +17,7 @@ public class Start {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println(help);
+            System.exit(0);
         }
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
