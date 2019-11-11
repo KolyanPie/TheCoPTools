@@ -1,4 +1,4 @@
-package elements;
+package edu.thecop.tools.statesfromdrawio.elements;
 
 public enum Type {
     ACTOR,

@@ -1,4 +1,4 @@
-package elements;
+package edu.thecop.tools.statesfromdrawio.elements;
 
 import java.util.HashMap;
 

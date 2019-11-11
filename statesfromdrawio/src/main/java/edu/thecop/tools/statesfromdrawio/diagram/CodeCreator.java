@@ -1,4 +1,4 @@
-package diagram;
+package edu.thecop.tools.statesfromdrawio.diagram;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

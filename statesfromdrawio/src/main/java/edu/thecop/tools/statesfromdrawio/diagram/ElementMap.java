@@ -1,6 +1,6 @@
-package diagram;
+package edu.thecop.tools.statesfromdrawio.diagram;
 
-import elements.*;
+import edu.thecop.tools.statesfromdrawio.elements.*;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;

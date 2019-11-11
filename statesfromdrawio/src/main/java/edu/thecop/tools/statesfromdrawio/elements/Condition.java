@@ -1,4 +1,4 @@
-package elements;
+package edu.thecop.tools.statesfromdrawio.elements;
 
 public class Condition extends Element {
     private String sourceId;

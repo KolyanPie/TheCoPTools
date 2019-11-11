@@ -1,4 +1,6 @@
-import diagram.CodeCreator;
+package edu.thecop.tools.statesfromdrawio;
+
+import edu.thecop.tools.statesfromdrawio.diagram.CodeCreator;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -11,7 +13,7 @@ public class Start {
     private final static String help;
 
     static {
-        help = "arg filename(file from text in drawio Extras/Edit diagram...)";
+        help = "arg filename(file from text in drawio Extras/Edit edu.thecop.tools.statesfromdrawio.diagram...)";
     }
 
     public static void main(String[] args) {
