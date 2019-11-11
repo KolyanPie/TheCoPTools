@@ -21,7 +21,6 @@ public class CodeCreator {
             }
         }
         elementMap.calculate();
-        elementMap.fixFirstLetter();
     }
 
     public void create(File directory) {

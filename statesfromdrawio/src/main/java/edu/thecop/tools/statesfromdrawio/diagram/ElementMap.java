@@ -13,6 +13,7 @@ public class ElementMap {
     private HashMap<String, LastingState> lastingStates;
     private Condition createdCondition;
     private List<Condition> conditions;
+    private Element actor;
 
     {
         loopStates = new HashMap<>();
@@ -48,17 +49,22 @@ public class ElementMap {
                     }
                     break;
                 default:
+                    if (createdCondition != null) {
+                        throw new RuntimeException("have few created conditions");
+                    }
                     createdCondition = new Condition(values[0], sourceId, targetId);
                     break;
             }
         } else if (!styleMap.containsKey("shape")) {
-            if (styleMap.get("rounded").equals("0")) {
-                lastingStates.put(id, new LastingState(values[0], values[1]));
-            } else {
-                loopStates.put(id, new LoopState(values[0]));
+            if (actor != null) {
+                throw new RuntimeException("have few actor");
             }
+            actor = new Element(values[0]);
+        } else if (styleMap.get("rounded").equals("0")) {
+            lastingStates.put(id, new LastingState(values[0], values[1]));
+        } else {
+            loopStates.put(id, new LoopState(values[0]));
         }
-
     }
 
     public void calculate() {
@@ -92,14 +98,6 @@ public class ElementMap {
                 }
             }
         });
-    }
-
-    public void fixFirstLetter() {
-        for (Condition condition : conditions) {
-            condition.fixFirstLetter(true);
-        }
-        loopStates.forEach((id, state) -> state.fixFirstLetter(false));
-        lastingStates.forEach((id, state) -> state.fixFirstLetter(false));
     }
 
     private void setTarget(Condition condition) {
