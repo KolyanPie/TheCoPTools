@@ -1,8 +1,11 @@
-package edu.thecop.tools.statesfromdrawio.diagram;
+package edu.thecop.tools.statesfromdrawio.code;
 
+import edu.thecop.tools.statesfromdrawio.diagram.ElementMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.io.File;
 
 public class CodeCreator {
     public CodeCreator(Document document) {
@@ -19,5 +22,14 @@ public class CodeCreator {
         }
         elementMap.calculate();
         elementMap.fixFirstLetter();
+    }
+
+    public void create(File directory) {
+        if (!directory.exists()) {
+            if (!directory.mkdir()) {
+                throw new RuntimeException("can't create directory " + directory.getAbsolutePath());
+            }
+        }
+
     }
 }

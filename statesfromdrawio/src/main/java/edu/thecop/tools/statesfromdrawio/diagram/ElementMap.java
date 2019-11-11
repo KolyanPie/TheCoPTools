@@ -1,6 +1,6 @@
 package edu.thecop.tools.statesfromdrawio.diagram;
 
-import edu.thecop.tools.statesfromdrawio.elements.*;
+import edu.thecop.tools.statesfromdrawio.diagram.elements.*;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-class ElementMap {
+public class ElementMap {
     private HashMap<String, LoopState> loopStates;
     private HashMap<String, LastingState> lastingStates;
     private Condition createdCondition;
@@ -20,7 +20,7 @@ class ElementMap {
         conditions = new ArrayList<>();
     }
 
-    void add(Node node) {
+    public void add(Node node) {
         String[] styles = node.getAttributes().getNamedItem("style").getNodeValue().split(";");
         HashMap<String, String> styleMap = new HashMap<>(styles.length);
         Arrays.stream(styles).forEach((s -> {
@@ -61,7 +61,7 @@ class ElementMap {
 
     }
 
-    void calculate() {
+    public void calculate() {
         setTarget(createdCondition);
         for (Condition condition : conditions) {
             setTarget(condition);
@@ -94,7 +94,7 @@ class ElementMap {
         });
     }
 
-    void fixFirstLetter() {
+    public void fixFirstLetter() {
         for (Condition condition : conditions) {
             condition.fixFirstLetter(true);
         }

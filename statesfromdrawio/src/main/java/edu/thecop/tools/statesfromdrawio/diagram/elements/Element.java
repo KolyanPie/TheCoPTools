@@ -1,4 +1,4 @@
-package edu.thecop.tools.statesfromdrawio.elements;
+package edu.thecop.tools.statesfromdrawio.diagram.elements;
 
 abstract class Element {
     private String value;
