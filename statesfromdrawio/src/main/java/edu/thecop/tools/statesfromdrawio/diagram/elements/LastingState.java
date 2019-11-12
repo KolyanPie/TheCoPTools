@@ -1,5 +1,7 @@
 package edu.thecop.tools.statesfromdrawio.diagram.elements;
 
+import edu.thecop.tools.statesfromdrawio.diagram.DiagramException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,14 +22,14 @@ public class LastingState extends LoopState {
 
     public void addNextCondition(NextCondition condition) {
         if (nextConditions.containsKey(condition.getPriority())) {
-            throw new RuntimeException(String.format("State %s have condition %s and condition %s with equals priority", this.getValue(), nextConditions.get(condition.getPriority()).getValue(), condition.getValue()));
+            throw new DiagramException(String.format("State %s have condition %s and condition %s with equals priority", this.getValue(), nextConditions.get(condition.getPriority()).getValue(), condition.getValue()));
         }
         nextConditions.put(condition.getPriority(), condition);
     }
 
     public void setDefaultCondition(DefaultCondition condition) {
         if (defaultCondition != null) {
-            throw new RuntimeException(String.format("State %s have few default condition", this.getValue()));
+            throw new DiagramException(String.format("State %s have few default condition", this.getValue()));
         }
         defaultCondition = condition;
     }

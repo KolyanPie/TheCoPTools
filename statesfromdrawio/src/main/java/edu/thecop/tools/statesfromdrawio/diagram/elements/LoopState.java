@@ -1,5 +1,7 @@
 package edu.thecop.tools.statesfromdrawio.diagram.elements;
 
+import edu.thecop.tools.statesfromdrawio.diagram.DiagramException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,7 +18,7 @@ public class LoopState extends Element {
 
     public void addBreakCondition(BreakCondition condition) {
         if (breakConditions.containsKey(condition.getPriority())) {
-            throw new RuntimeException(String.format("State %s have condition %s and condition %s with equals priority", this.getValue(), breakConditions.get(condition.getPriority()).getValue(), condition.getValue()));
+            throw new DiagramException(String.format("State %s have condition %s and condition %s with equals priority", this.getValue(), breakConditions.get(condition.getPriority()).getValue(), condition.getValue()));
         }
         breakConditions.put(condition.getPriority(), condition);
     }

@@ -39,12 +39,12 @@ public class ElementMap {
             Node target = node.getAttributes().getNamedItem("target");
             if (source == null) {
                 if (target == null) {
-                    throw new RuntimeException("Condition " + value.getNodeValue() + " have not source and target");
+                    throw new DiagramException("Condition " + value.getNodeValue() + " have not source and target");
                 }
-                throw new RuntimeException("Condition " + value.getNodeValue() + " to " + target.getNodeValue() + " have not source");
+                throw new DiagramException("Condition " + value.getNodeValue() + " to " + target.getNodeValue() + " have not source");
             }
             if (target == null) {
-                throw new RuntimeException("Condition " + value.getNodeValue() + " from " + source.getNodeValue() + " have not target");
+                throw new DiagramException("Condition " + value.getNodeValue() + " from " + source.getNodeValue() + " have not target");
             }
             sourceId = source.getNodeValue();
             targetId = target.getNodeValue();
@@ -65,14 +65,14 @@ public class ElementMap {
                     break;
                 default:
                     if (createdCondition != null) {
-                        throw new RuntimeException("have few created conditions");
+                        throw new DiagramException("have few created conditions");
                     }
                     createdCondition = new Condition(values[0], sourceId, targetId);
                     break;
             }
         } else if (styleMap.containsKey("shape")) {
             if (actor != null) {
-                throw new RuntimeException("have few actor");
+                throw new DiagramException("have few actor");
             }
             actor = new Element(values[0]);
         } else if (styleMap.get("rounded").equals("0")) {
@@ -96,8 +96,6 @@ public class ElementMap {
                         state.addNextCondition((NextCondition) condition);
                     } else if (condition instanceof BreakCondition) {
                         state.addBreakCondition((BreakCondition) condition);
-                    } else {
-                        throw new RuntimeException("WTF");
                     }
                 }
             }
@@ -108,7 +106,7 @@ public class ElementMap {
                     if (condition instanceof BreakCondition) {
                         state.addBreakCondition((BreakCondition) condition);
                     } else {
-                        throw new RuntimeException(String.format("state %s have a condition %s", state.getValue(), condition.getValue()));
+                        throw new DiagramException(String.format("state %s have a condition %s", state.getValue(), condition.getValue()));
                     }
                 }
             }
@@ -142,7 +140,7 @@ public class ElementMap {
         } else if (lastingStates.containsKey(condition.getTargetId())) {
             condition.setTarget(lastingStates.get(condition.getTargetId()));
         } else {
-            throw new RuntimeException(String.format("Condition %s have not target state", condition.getValue()));
+            throw new DiagramException(String.format("Condition %s have not target state", condition.getValue()));
         }
     }
 

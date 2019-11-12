@@ -1,5 +1,6 @@
 package edu.thecop.tools.statesfromdrawio.code;
 
+import edu.thecop.tools.statesfromdrawio.diagram.DiagramException;
 import edu.thecop.tools.statesfromdrawio.diagram.ElementMap;
 import edu.thecop.tools.statesfromdrawio.diagram.elements.LastingState;
 import edu.thecop.tools.statesfromdrawio.diagram.elements.LoopState;
@@ -48,7 +49,7 @@ public class CodeCreator {
     public void write(File directory) throws Exception {
         if (!directory.exists()) {
             if (!directory.mkdir()) {
-                throw new RuntimeException("can't create directory " + directory.getAbsolutePath());
+                throw new DiagramException("can't create directory " + directory.getAbsolutePath());
             }
         }
         ClassWriter classWriter = new ClassWriter(directory);
