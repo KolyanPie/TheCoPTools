@@ -1,9 +1,12 @@
 package edu.thecop.tools.statesfromdrawio.diagram.elements;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LastingState extends LoopState {
-    private String durationVar;
     private HashMap<Integer, NextCondition> nextConditions;
     private DefaultCondition defaultCondition;
 
@@ -11,9 +14,8 @@ public class LastingState extends LoopState {
         nextConditions = new HashMap<>();
     }
 
-    public LastingState(String value, String durationVar) {
+    public LastingState(String value) {
         super(value);
-        this.durationVar = durationVar;
     }
 
     public void addNextCondition(NextCondition condition) {
@@ -23,9 +25,21 @@ public class LastingState extends LoopState {
         nextConditions.put(condition.getPriority(), condition);
     }
 
-    public void setDefaultCondition(DefaultCondition Condition) {
+    public void setDefaultCondition(DefaultCondition condition) {
         if (defaultCondition != null) {
             throw new RuntimeException(String.format("State %s have few default condition", this.getValue()));
         }
+        defaultCondition = condition;
+    }
+
+    public List<NextCondition> getReverseSortedNextConditions() {
+        List<Integer> list = new ArrayList<>(nextConditions.keySet());
+        Collections.sort(list);
+        Collections.reverse(list);
+        return list.stream().map((key -> nextConditions.get(key))).collect(Collectors.toList());
+    }
+
+    public DefaultCondition getDefaultCondition() {
+        return defaultCondition;
     }
 }

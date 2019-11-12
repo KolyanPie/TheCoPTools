@@ -1,15 +1,23 @@
 package edu.thecop.tools.statesfromdrawio.code;
 
 import edu.thecop.tools.statesfromdrawio.diagram.ElementMap;
+import edu.thecop.tools.statesfromdrawio.diagram.elements.LastingState;
+import edu.thecop.tools.statesfromdrawio.diagram.elements.LoopState;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CodeCreator {
+
+    private final ElementMap elementMap;
+    private List<FileElement> fileElements;
+
     public CodeCreator(Document document) {
-        ElementMap elementMap = new ElementMap();
+        elementMap = new ElementMap();
         Node root = document.getDocumentElement();
         NodeList list = root.getChildNodes();
         root = list.item(1);
@@ -23,12 +31,29 @@ public class CodeCreator {
         elementMap.calculate();
     }
 
-    public void create(File directory) {
+    public void create(String packageS) {
+        String actor = Templates.fixFirstLetter(false, elementMap.getActorName());
+        fileElements = new ArrayList<>();
+        fileElements.add(new ActorInterface(packageS, actor, elementMap.getConditionSet()));
+        fileElements.add(new ActorStatesEnum(packageS, actor, elementMap.getLoopStates(), elementMap.getLastingStates()));
+        fileElements.add(new ActorLastingState(packageS, actor));
+        for (LoopState loopState : elementMap.getLoopStates()) {
+            fileElements.add(new ActorStateLoopState(packageS, actor, loopState));
+        }
+        for (LastingState lastingState : elementMap.getLastingStates()) {
+            fileElements.add(new ActorStateLastingState(packageS, actor, lastingState));
+        }
+    }
+
+    public void write(File directory) throws Exception {
         if (!directory.exists()) {
             if (!directory.mkdir()) {
                 throw new RuntimeException("can't create directory " + directory.getAbsolutePath());
             }
         }
-
+        ClassWriter classWriter = new ClassWriter(directory);
+        for (FileElement fileElement : fileElements) {
+            classWriter.writeFile(fileElement);
+        }
     }
 }
