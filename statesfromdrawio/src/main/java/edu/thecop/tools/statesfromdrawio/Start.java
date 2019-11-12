@@ -17,6 +17,8 @@ public class Start {
         help = "arg filename(file from text in drawio Extras/Edit diagram...)";
     }
 
+    private static CodeCreator codeCreator;
+
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println(help);
@@ -25,9 +27,20 @@ public class Start {
         try {
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = documentBuilder.parse(args[0]);
-            CodeCreator codeCreator = new CodeCreator(document);
-            codeCreator.create(new File(args[0].substring(0, args[0].length() - 4)));
-        } catch (ParserConfigurationException | IOException | SAXException e) {
+            codeCreator = new CodeCreator(document);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String dir = args[0].substring(0, args[0].length() - 4);
+        try {
+            String[] split = dir.split("/");
+            codeCreator.create("ru.edu.cop.model." + split[split.length - 1]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            codeCreator.write(new File(dir));
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
