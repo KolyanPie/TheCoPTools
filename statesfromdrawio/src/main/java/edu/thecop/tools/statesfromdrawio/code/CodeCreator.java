@@ -20,9 +20,15 @@ public class CodeCreator {
 
     public CodeCreator(Document document) {
         elementMap = new ElementMap();
-        Node root = document.getDocumentElement();
-        NodeList list = root.getChildNodes();
-        root = list.item(1);
+        Node root;
+        NodeList list;
+        try {
+            root = document.getDocumentElement();
+            list = root.getChildNodes();
+            root = list.item(1);
+        } catch (Exception e) {
+            throw new DiagramException("Bad xml file organization");
+        }
         list = root.getChildNodes();
         for (int i = 0; i < list.getLength(); i++) {
             Node item = list.item(i);

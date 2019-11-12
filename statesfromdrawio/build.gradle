@@ -4,7 +4,7 @@ plugins {
 
 version '1.0-SNAPSHOT'
 
-mainClassName = "edu.thecop.tools.statesfromdrawio.Start"
+mainClassName = "edu.thecop.tools.statesfromdrawio.visual.App"
 
 jar {
     manifest.attributes("Main-Class": mainClassName)
