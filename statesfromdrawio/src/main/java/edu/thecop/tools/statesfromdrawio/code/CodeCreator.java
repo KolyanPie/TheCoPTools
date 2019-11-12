@@ -9,6 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class CodeCreator {
         }
     }
 
-    public void write(File directory) throws Exception {
+    public void write(File directory) throws IOException {
         if (!directory.exists()) {
             if (!directory.mkdir()) {
                 throw new DiagramException("can't create directory " + directory.getAbsolutePath());
