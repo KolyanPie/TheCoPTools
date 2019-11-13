@@ -45,16 +45,15 @@ public class ReadCreateWriter {
         dialog.setTitle("We have a trouble");
         dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
-        xmlFiled.textProperty().addListener((observable, oldValue, newValue) -> folderField.setText(newValue.replaceFirst("(\\..*$)", "")));
+        xmlFiled.textProperty().addListener((observable, oldValue, newValue) -> folderField.setText(newValue.replaceFirst("\\.[^./]*$", "")));
         folderField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (oldValue.replaceFirst(".*/", "").equals(packageField.getText().replaceFirst(".*\\.", ""))) {
-                packageField.setText(packageField.getText().replaceFirst("[^.]*$", newValue.replaceFirst(".*/", "")));
+            newValue = newValue.replaceAll(".*/|\\.", "");
+            if (oldValue.replaceAll(".*/|\\.", "").equals(packageField.getText().replaceFirst(".*\\.", ""))) {
+                packageField.setText(packageField.getText().replaceFirst("[^.]*$", newValue));
             } else {
-                packageField.setText(packageField.getText() + "." + newValue.replaceFirst(".*/", ""));
+                packageField.setText(packageField.getText() + "." + newValue);
             }
-            if (packageField.getText().replaceFirst(".*\\.", "").isEmpty()) {
-                packageField.setText(packageField.getText().replaceFirst("\\.$", ""));
-            }
+            packageField.setText(packageField.getText().replaceFirst("\\.$", ""));
         });
     }
 
@@ -75,6 +74,10 @@ public class ReadCreateWriter {
         codeCreator.create(packageField.getText());
         try {
             codeCreator.write(new File(folderField.getText()));
+            Alert successfully = new Alert(Alert.AlertType.INFORMATION);
+            successfully.setTitle("Successfully");
+            successfully.setContentText("Complete!");
+            successfully.show();
         } catch (IOException e) {
             showErrorDialog(new Exception("Trouble with file"));
         }
