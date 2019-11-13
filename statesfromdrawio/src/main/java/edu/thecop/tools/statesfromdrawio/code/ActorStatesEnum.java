@@ -18,8 +18,10 @@ class ActorStatesEnum extends FileElement {
                 "import %s.Handler;\n" +
                 "import %2$s.State;\n" +
                 "\n" +
+                "import static %1$s.%sLastingStateHandler.*;\n" +
+                "\n" +
                 Templates.GENERATED_CLASS +
-                "public enum %sStates implements State<%3$s> {" +
+                "public enum %3$sStates implements State<%3$s> {" +
                 "%s\n" +
                 "    public static final int COUNT_OF_LOOP_ANIMATIONS = %s;\n" +
                 "\n" +

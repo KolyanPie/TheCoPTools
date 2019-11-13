@@ -44,7 +44,7 @@ public class CodeCreator {
         fileElements = new ArrayList<>();
         fileElements.add(new ActorInterface(packageS, actor, elementMap.getConditionSet()));
         fileElements.add(new ActorStatesEnum(packageS, actor, elementMap.getLoopStates(), elementMap.getLastingStates()));
-        fileElements.add(new ActorLastingState(packageS, actor));
+        fileElements.add(new ActorLastingState(packageS, actor, elementMap.getLastingStates()));
         for (LoopState loopState : elementMap.getLoopStates()) {
             fileElements.add(new ActorStateLoopState(packageS, actor, loopState));
         }
